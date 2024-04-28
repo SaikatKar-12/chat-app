@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
-
+const cors = require("cors");
 var id;
 
 const connect = require('./config/database-config');
@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
 });
 app.set('view engine', 'ejs');
 app.use('/', express.static(__dirname + '/public'));
-
+app.use(cors());
 app.get('/chat/:roomid/:userid', async (req, res) => {
     const chats = await Chat.find({
         roomId: req.params.roomid,
